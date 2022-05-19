@@ -68,7 +68,9 @@ Make basic website with Vue framework
 You can also contribute by opening a pull request or submitting an issue
 
 ## Acknowledgements
+[https://blog.logrocket.com/an-imperative-guide-to-forms-in-vue-js-2/](https://blog.logrocket.com/an-imperative-guide-to-forms-in-vue-js-2/)
 
+[https://vuejs.org/guide/essentials/forms.html#text](https://vuejs.org/guide/essentials/forms.html#text)
 
 ## Testing
 No testing yet

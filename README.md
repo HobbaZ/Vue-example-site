@@ -72,6 +72,10 @@ You can also contribute by opening a pull request or submitting an issue
 
 [https://vuejs.org/guide/essentials/forms.html#text](https://vuejs.org/guide/essentials/forms.html#text)
 
+[https://tailwindcss.com/docs/hover-focus-and-other-states](https://tailwindcss.com/docs/hover-focus-and-other-states)
+
+[https://stackoverflow.com/questions/66559478/enable-disable-button-with-vuejs](https://stackoverflow.com/questions/66559478/enable-disable-button-with-vuejs)
+
 ## Testing
 No testing yet
 

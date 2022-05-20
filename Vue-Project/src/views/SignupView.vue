@@ -1,52 +1,70 @@
 <template>
-  <div>
+  <div class="container bg-black-900">
 
-  <h1>Signup</h1>
+  <h1 class="text-center">Signup</h1>
 
     <form @submit="onSubmit">
-        <div class="field">
-          <label class="label">First Name</label>
-          <div class="control">
-            <input v-model.trim.lazy="firstname" class="input" type="text" placeholder="Your First Name" required minLength={2}>
-          </div>
-          <span>{{validFirstName}}</span>
+        <fieldset>
+          <label>First Name</label>
+            <input v-model.trim.lazy="firstname" type="text" placeholder="Your First Name" required minLength=2 
+
+            class=" peer 
+            focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            invalid:border-red-500 invalid:text-red-600
+            focus:invalid:border-red-500 focus:invalid:ring-red-500
+            ">
+          <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validFirstName}}</p>
+
+          <label>Last Name</label>
+            <input v-model.trim.lazy="lastname" type="text" placeholder="Your Last Name" required minLength=2 
+
+            class=" peer 
+            focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            invalid:border-red-500 invalid:text-red-600
+            focus:invalid:border-red-500 focus:invalid:ring-red-500
+            ">
+          <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validLastName}}</p>
+
+          <label>Username</label>
+            <input v-model.trim="username" type="text" placeholder="Create a Username" required minLength=2
+
+            class=" peer 
+            focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            invalid:border-red-500 invalid:text-red-600
+            focus:invalid:border-red-500 focus:invalid:ring-red-500
+            ">
+          <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validUsername}}</p>
+
+          <label>Email</label>
+            <input v-model.trim.lazy="email" type="email" placeholder="Your Email" required
+
+            class=" peer 
+            focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            invalid:border-red-500 invalid:text-red-600
+            focus:invalid:border-red-500 focus:invalid:ring-red-500
+            ">
+          <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validEmail}}</p>
+
+          <label>Password</label>
+            <input v-model.trim.lazy="password" type="password" placeholder="Create a Password" required minLength=8 
+            class=" peer 
+            focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+            invalid:border-red-500 invalid:text-red-600
+            focus:invalid:border-red-500 focus:invalid:ring-red-500
+            ">
+          <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validPassword}}</p>
+          </fieldset>
+
+        <div class="text-center">
+        <button  :disabled="isCompleted" class= "disabled:bg-slate-500 disabled:text-white"> Signup </button>
         </div>
 
-        <div class="field">
-          <label class="label">Last Name</label>
-          <div class="control">
-            <input v-model.trim.lazy="lastname" class="input" type="text" placeholder="Your Last Name" required minLength={2}>
-          </div>
-          <span>{{validLastName}}</span>
+        <div class="text-center">
+        <button> Login Instead </button>
         </div>
-
-        <div class="field">
-          <label class="label">Username</label>
-          <div class="control">
-            <input v-model.trim.lazy="username" class="input" type="text" placeholder="Create a Username">
-          </div>
-          <span>{{validUsername}}</span>
-        </div>
-
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input v-model.trim.lazy="email" class="input" type="email" placeholder="Your Email">
-          </div>
-            <span>{{validEmail}}</span>
-        </div>
-
-        <div class="field">
-          <label class="label">Password</label>
-          <div class="control">
-            <input v-model="password" class="input" type="password" placeholder="Create a Password">
-          </div>
-            <span>{{validPassword}}</span>
-        </div>
-
     </form>
 
-    <div>
+    <div class="results">
     <h3>Your Details</h3>
 
     <p>First Name: {{ firstname }}</p>
@@ -56,8 +74,7 @@
 
     </div>
 
-    <button :disabled="!firstname"> Signup </button>
-    <button> Login Instead </button>
+    
 </div>
 
 </template>
@@ -103,7 +120,11 @@ export default {
     validEmail() {
       let emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       return !emailRegex.test(this.email) ? "Invalid Email" : "";
-    }
+    },
+
+    isCompleted: function() {
+    	return !this.firstname || !this.lastname || !this.username || !this.email || !this.password;
+    },
   }
 };
 

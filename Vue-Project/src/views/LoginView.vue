@@ -47,7 +47,6 @@ export default {
   },
 
   computed: {
-
     isCompleted: function() {
     	return !this.email || !this.password;
     },

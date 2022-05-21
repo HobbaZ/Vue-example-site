@@ -97,6 +97,10 @@ export default {
     onSubmit() {
       alert("Form successfully submitted");
     },
+
+    createUser() {
+      
+    }
   },
 
   computed: {

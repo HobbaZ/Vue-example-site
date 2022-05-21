@@ -13,6 +13,10 @@ html, body {
   }
 
 @layer base {
+    html {
+        @apply dark:bg-slate-900;
+
+    }
     h1 {
       @apply text-4xl text-center mt-3 font-bold text-white;
     }
@@ -38,11 +42,11 @@ html, body {
     }
 
     nav {
-        @apply flex items-center justify-between flex-wrap p-6 border-b-2 border-white;
+        @apply block w-full flex flex-col items-center justify-between px-12 py-4 border-b-2 border-white sm:flex-row;
     }
 
     nav a {
-        @apply text-white text-2xl italic hover:text-gray-400 font-bold;
+        @apply text-white text-2xl italic hover:text-gray-400 font-bold my-2;
     }
 
     footer {

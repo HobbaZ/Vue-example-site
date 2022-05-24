@@ -1,9 +1,10 @@
 <template>
-  <div class="container bg-black-900">
+
+  <div class="signup">
 
   <h1 class="text-center">Signup</h1>
 
-    <form @submit="onSubmit">
+    <form @submit.prevent="onSubmit">
         <fieldset>
           <label>First Name</label>
             <input v-model.trim.lazy="firstname" type="text" placeholder="Your First Name" required minLength=2 
@@ -12,7 +13,7 @@
             focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
             invalid:border-red-500 invalid:text-red-600
             focus:invalid:border-red-500 focus:invalid:ring-red-500
-            ">
+            "/>
           <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validFirstName}}</p>
 
           <label>Last Name</label>
@@ -22,7 +23,7 @@
             focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
             invalid:border-red-500 invalid:text-red-600
             focus:invalid:border-red-500 focus:invalid:ring-red-500
-            ">
+            "/>
           <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validLastName}}</p>
 
           <label>Username</label>
@@ -32,7 +33,7 @@
             focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
             invalid:border-red-500 invalid:text-red-600
             focus:invalid:border-red-500 focus:invalid:ring-red-500
-            ">
+            "/>
           <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validUsername}}</p>
 
           <label>Email</label>
@@ -42,7 +43,7 @@
             focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
             invalid:border-red-500 invalid:text-red-600
             focus:invalid:border-red-500 focus:invalid:ring-red-500
-            ">
+            "/>
           <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validEmail}}</p>
 
           <label>Password</label>
@@ -51,7 +52,7 @@
             focus: outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
             invalid:border-red-500 invalid:text-red-600
             focus:invalid:border-red-500 focus:invalid:ring-red-500
-            ">
+            "/>
           <p class="invisible peer-invalid:visible text-red-600 italic text-center">{{validPassword}}</p>
           </fieldset>
 
@@ -63,23 +64,27 @@
         <button> Login Instead </button>
         </div>
     </form>
-
-    <div class="results">
-    <h3>Your Details</h3>
-
-    <p>First Name: {{ firstname }}</p>
-    <p>Last Name: {{ lastname }}</p>
-    <p>Username: {{ username }}</p>
-    <p>Email: {{ email }}</p>
-
-    </div>
-
     
-</div>
-
+    </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
+const CREATE_USER = gql`
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    createUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        firstname
+        lastname
+        username
+        email
+      }
+    }
+  }
+`;
 
 //User input data
 export default {
@@ -95,13 +100,34 @@ export default {
 
   methods: {
     onSubmit() {
-      alert("Form successfully submitted");
-    },
+      const firstname = this.firstname
+      const lastname = this.lastname
+      const username = this.username
+      const email = this.email
+      password = this.password
 
-    createUser() {
-      
-    }
-  },
+      this.firstname = ''
+      this.lastname = ''
+      this.username = ''
+      this.email = ''
+      this.password = ''
+
+      alert("Form successfully submitted");
+
+    this.$apollo.mutate({
+    variables: {
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+    },
+    }).then((data) => {
+      console.log(data)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }},
 
   computed: {
 

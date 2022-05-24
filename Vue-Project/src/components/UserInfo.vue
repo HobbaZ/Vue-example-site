@@ -1,7 +1,9 @@
 <!-- Info for user profile -->
 <script>
+
 export default {
-  props: ['firstname', 'lastname', 'username', 'email']
+  props: ['firstname', 'lastname', 'username', 'email'],
+
 }
 </script>
 

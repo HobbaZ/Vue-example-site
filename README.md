@@ -76,6 +76,10 @@ You can also contribute by opening a pull request or submitting an issue
 
 [https://stackoverflow.com/questions/66559478/enable-disable-button-with-vuejs](https://stackoverflow.com/questions/66559478/enable-disable-button-with-vuejs)
 
+[Vue Apollo docs](https://v4.apollo.vuejs.org/)
+
+[https://github.com/graphql-boilerplates/vue-fullstack-graphql/blob/master/basic/src/components/CreatePage.vue](https://github.com/graphql-boilerplates/vue-fullstack-graphql/blob/master/basic/src/components/CreatePage.vue)
+
 ## Testing
 No testing yet
 

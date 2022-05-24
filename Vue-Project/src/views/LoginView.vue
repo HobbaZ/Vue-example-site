@@ -38,13 +38,57 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
+const LOGIN_USER = gql`
+  mutation loginUser($username: String!, $email: String!, $password: String!) {
+    loginUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        firstname
+        lastname
+        username
+        email
+      }
+    }
+  }
+`;
+
+//User input data
 export default {
   data() {
     return {
+      username: '',
       email: '',
       password: '',
     }
   },
+
+  methods: {
+    onSubmit() {
+      const username = this.username
+      const email = this.email
+      password = this.password
+
+      this.username = ''
+      this.email = ''
+      this.password = ''
+
+      alert("Form successfully submitted");
+
+    this.$apollo.mutate({
+    variables: {
+      username,
+      email,
+      password,
+    },
+    }).then((data) => {
+      console.log(data)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }},
 
   computed: {
     isCompleted: function() {

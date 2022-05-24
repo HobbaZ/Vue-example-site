@@ -1,39 +1,43 @@
 const express = require('express');
-const path = require('path');
-const db = require('./config/connection');
 const { ApolloServer } = require('apollo-server-express');
-const { resolvers, typeDefs } = require('./schemas'); //use index file in schemas
-const { authMiddleware } = require('./utils/auth')
+const path = require('path');
 
-async function startServer() {
-  const server = new ApolloServer({
-      typeDefs,
-      resolvers,
-      context: authMiddleware,
-  });
-  await server.start();
-  //Initialize Express
-  const app = express();
-  const PORT = process.env.PORT || 3001;
+const { typeDefs, resolvers } = require('./schemas');
+// Import `authMiddleware()` function to be configured with the Apollo Server
+const { authMiddleware } = require('./utils/auth');
+const db = require('./config/connection');
 
-  server.applyMiddleware({ app });
+const PORT = process.env.PORT || 3001;
+const app = express();
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
-
-  // if we're in production, serve client/build as static assets
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-  }
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-
-  db.once('open', () => {
-    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-    console.log(`gql path is ${server.graphqlPath}`);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  // Add context to our server so data from the `authMiddleware()` function can pass data to our resolver functions
+  context: authMiddleware,
 });
 
+server.applyMiddleware({ app });
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
 }
-startServer();
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+});

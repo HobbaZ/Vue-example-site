@@ -4,7 +4,7 @@
 
   <h1 class="text-center">Signup</h1>
 
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="submitForm">
         <fieldset>
           <label>First Name</label>
             <input v-model.trim.lazy="firstname" type="text" placeholder="Your First Name" required minLength=2 
@@ -69,22 +69,7 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
-const CREATE_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    createUser(username: $username, email: $email, password: $password) {
-      token
-      user {
-        _id
-        firstname
-        lastname
-        username
-        email
-      }
-    }
-  }
-`;
+import { CREATE_USER } from '../GraphQL/grapql'
 
 //User input data
 export default {
@@ -99,12 +84,13 @@ export default {
   },
 
   methods: {
-    onSubmit() {
+    async submitForm() {
+
       const firstname = this.firstname
       const lastname = this.lastname
       const username = this.username
       const email = this.email
-      password = this.password
+      const password = this.password
 
       this.firstname = ''
       this.lastname = ''
@@ -112,10 +98,9 @@ export default {
       this.email = ''
       this.password = ''
 
-      alert("Form successfully submitted");
-
-    this.$apollo.mutate({
-    variables: {
+      const result = await this.$apollo.mutate({
+      mutation: CREATE_USER,
+      variables: {
       firstname,
       lastname,
       username,
@@ -126,6 +111,10 @@ export default {
       console.log(data)
     }).catch((error) => {
       console.log(error)
+      this.firstname = firstname,
+      this.lastname = lastname,
+      this.username = username,
+      this.email = email
     })
   }},
 

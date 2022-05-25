@@ -9,6 +9,7 @@
 <script>
 
 import UserInfo from '../components/UserInfo.vue'
+import { Greeting } from '../utils/timeGreeting'
 
 export default {
   components: {

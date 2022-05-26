@@ -4,7 +4,7 @@
 
   <h1 class="text-center">Signup</h1>
 
-    <form @submit.prevent="submitForm">
+    <form method ="POST" @submit.prevent="submitForm">
         <fieldset>
           <label>First Name</label>
             <input v-model.trim.lazy="firstname" type="text" placeholder="Your First Name" required minLength=2 
@@ -92,29 +92,21 @@ export default {
       const email = this.email
       const password = this.password
 
-      this.firstname = ''
-      this.lastname = ''
-      this.username = ''
-      this.email = ''
-      this.password = ''
-
       const result = await this.$apollo.mutate({
       mutation: CREATE_USER,
       variables: {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      username: this.username,
+      email: this.email,
+      password: this.password
     },
     }).then((data) => {
-      console.log(data)
+      console.log("Submitting to create user", data)
     }).catch((error) => {
-      console.log(error)
-      this.firstname = firstname,
-      this.lastname = lastname,
-      this.username = username,
-      this.email = email
+      console.log("Error with signup", error)
+      this.firstname = firstname
+
     })
   }},
 

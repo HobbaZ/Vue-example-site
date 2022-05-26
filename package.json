@@ -1,5 +1,5 @@
 {
-  "name": "Vue-example-site",
+  "name": "VueExampleSite",
   "version": "1.0.0",
   "description": "[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://choosealicense.com/licenses/mit/) ![License](https://img.shields.io/badge/Made%20with-Vue-darkgreen.svg) [![Github Commits](https://img.shields.io/github/commit-activity/w/HobbaZ/Vue-example-site)](https://github.com/HobbaZ/Vue-example-site/commits) [![GitHub latest commit](https://img.shields.io/github/last-commit/HobbaZ/Vue-example-site)](https://github.com/HobbaZ/Vue-example-site/branches) [![GitHub followers](https://img.shields.io/github/followers/HobbaZ.svg)]() ![GitHub repo size](https://img.shields.io/github/repo-size/HobbaZ/Vue-example-site) [![GitHub issues](https://img.shields.io/github/issues/HobbaZ/Vue-example-site)](https://img.shields.io/github/issues/HobbaZ/Vue-example-site) ![GitHub forks](https://img.shields.io/github/forks/HobbaZ/Vue-example-site) ![GitHub language count](https://img.shields.io/github/languages/count/HobbaZ/Vue-example-site)",
   "main": "index.js",

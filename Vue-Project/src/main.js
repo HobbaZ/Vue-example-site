@@ -1,7 +1,7 @@
 import { createApp, h, provide } from 'vue'
 import { createPinia } from 'pinia'
 import VueApolloComponents from '@vue/apollo-components'
-import { DefaultApolloClient } from "@vue/apollo-composable"
+import { createApolloProvider } from '@vue/apollo-option'
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client/core'
 
@@ -30,15 +30,17 @@ const httpLink = createHttpLink({
 
 import App from './App.vue'
 import router from './router'
+import vueApolloComponents from '@vue/apollo-components';
+
+const apolloProvider = createApolloProvider({
+defaultClient: apolloClient,
+})
 
 const app = createApp({
-    setup() {
-        provide(DefaultApolloClient, apolloClient)
-    },
     render: () => h(App),
 })
 
-app.use(VueApolloComponents)
+app.use(apolloProvider)
 app.use(createPinia())
 app.use(router)
 
